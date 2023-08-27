@@ -6,12 +6,13 @@ import {
   ImageSourcePropType,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import SocialSignInButtons from '../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamListProp} from '../types/navigationTypes';
+import {useForm} from 'react-hook-form';
 
 type ImageType = {
   image: ImageSourcePropType;
@@ -22,14 +23,15 @@ const logo: ImageType = {
 };
 
 const SignInScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
   const {height} = useWindowDimensions();
 
   const navigation = useNavigation<RootStackParamListProp>();
 
-  const onSignInPressed = () => {
+  const {control, handleSubmit} = useForm();
+
+  const onSignInPressed = data => {
+    console.log(data);
+
     navigation.navigate('Home');
   };
 
@@ -49,18 +51,28 @@ const SignInScreen = () => {
           style={[styles.logo, {height: height * 0.3}]}
           resizeMode="contain"
         />
+
         <CustomInput
+          name="username"
           placeholder="Username"
-          value={username}
-          setValue={setUsername}
+          control={control}
+          rules={{required: 'Username is required'}}
         />
+
         <CustomInput
+          name="password"
+          control={control}
           placeholder="Password"
-          value={password}
-          setValue={setPassword}
           secureTextEntry
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'Password should be minimum 6 character long',
+            },
+          }}
         />
-        <CustomButton text="Sign In" onPress={onSignInPressed} />
+        <CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
         <CustomButton
           text="Forgon password?"
           onPress={onForgotPasswordPressed}
