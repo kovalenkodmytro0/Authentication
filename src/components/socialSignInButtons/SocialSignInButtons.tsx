@@ -1,6 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import CustomButton from './CustomButton';
+import CustomButton from '../customButton/CustomButton';
 
 const SocialSignInButtons = () => {
   const onSignInFacebook = () => {
@@ -40,5 +39,3 @@ const SocialSignInButtons = () => {
 };
 
 export default SocialSignInButtons;
-
-const styles = StyleSheet.create({});

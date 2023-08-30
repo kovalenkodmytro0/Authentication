@@ -1,6 +1,8 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import Navigation from './src/navigation/Navigation';
+import {Provider} from 'react-redux';
+import {store} from './src/redux/store';
 
 function App(): JSX.Element {
   return (

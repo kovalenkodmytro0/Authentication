@@ -7,12 +7,13 @@ import {
   ScrollView,
 } from 'react-native';
 import React from 'react';
-import CustomInput from '../components/CustomInput';
-import CustomButton from '../components/CustomButton';
-import SocialSignInButtons from '../components/SocialSignInButtons';
+import CustomInput from '../../components/customInput/CustomInput';
+import CustomButton from '../../components/customButton/CustomButton';
+import SocialSignInButtons from '../../components/socialSignInButtons/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamListProp} from '../types/navigationTypes';
+import {RootStackParamListProp} from '../../types/navigationTypes';
 import {useForm} from 'react-hook-form';
+import {styles} from './styles';
 
 type ImageType = {
   image: ImageSourcePropType;
@@ -93,14 +94,4 @@ const SignInScreen = () => {
 
 export default SignInScreen;
 
-const styles = StyleSheet.create({
-  root: {
-    alignItems: 'center',
-    padding: 20,
-  },
-  logo: {
-    width: '70%',
-    maxWidth: 300,
-    maxHeight: 200,
-  },
-});
+

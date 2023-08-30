@@ -1,5 +1,6 @@
-import {StyleSheet, Text, Pressable} from 'react-native';
+import {Text, Pressable} from 'react-native';
 import React from 'react';
+import {styles} from './styles';
 
 interface CustomButtonProps {
   text: string;
@@ -37,38 +38,3 @@ const CustomButton = ({
 };
 
 export default CustomButton;
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-
-    padding: 15,
-    marginVertical: 5,
-
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-
-  container_PRIMARY: {
-    backgroundColor: '#3b71f3',
-  },
-
-  container_SECONDARY: {
-    borderColor: '#3b71f3',
-    borderWidth: 2,
-  },
-
-  container_TERTIARY: {},
-  text: {
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-
-  text_TERTIARY: {
-    color: 'gray',
-  },
-
-  text_SECONDARY: {
-    color: '#3b71f3',
-  },
-});
