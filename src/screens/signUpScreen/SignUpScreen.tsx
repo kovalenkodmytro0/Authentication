@@ -8,20 +8,27 @@ import {RootStackParamListProp} from '../../types/navigationTypes';
 import {useForm} from 'react-hook-form';
 import {styles} from './styles';
 import {EMAIL_REGEX} from '../../constants/constants';
+import {useDispatch, useSelector} from 'react-redux';
+import {setEmail, setPassword, setUserName} from '../../redux/userSlice';
 
 const SignUpScreen = () => {
   const navigation = useNavigation<RootStackParamListProp>();
 
+  const dispatch = useDispatch();
+
   const {control, watch, handleSubmit} = useForm();
 
-  const password = useRef({});
-  password.current = watch('password', '');
+  const pass = useRef({});
+  pass.current = watch('password', '');
 
-  const onRegisterPress = () => {
-    navigation.navigate('ConfirmEmail');
+  const onRegisterPress = data => {
+    dispatch(setUserName(data.username));
+    dispatch(setEmail(data.email));
+    dispatch(setPassword(data.password));
+    navigation.navigate('SignIn');
   };
 
-  const onSignUpPressed = () => {
+  const onSignInPressed = () => {
     navigation.navigate('SignIn');
   };
 
@@ -86,7 +93,7 @@ const SignUpScreen = () => {
           rules={{
             required: 'Repeat Password is required',
             validate: (value: string) =>
-              value === password.current || 'The passwords do not match',
+              value === pass.current || 'The passwords do not match',
           }}
           secureTextEntry
         />
@@ -107,7 +114,7 @@ const SignUpScreen = () => {
 
         <CustomButton
           text="Have an account? Sign in"
-          onPress={onSignUpPressed}
+          onPress={onSignInPressed}
           type="TERTIARY"
         />
       </View>

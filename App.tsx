@@ -1,13 +1,20 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {Platform, SafeAreaView, StyleSheet} from 'react-native';
 import Navigation from './src/navigation/Navigation';
 import {Provider} from 'react-redux';
 import {store} from './src/redux/store';
+import SplashScreen from 'react-native-splash-screen';
 
-function App(): JSX.Element {
+function App() {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <SafeAreaView style={styles.root}>
-      <Navigation />
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
     </SafeAreaView>
   );
 }
