@@ -1,7 +1,8 @@
-import {Text, TextInput, View} from 'react-native';
-import React from 'react';
+import {Image, Pressable, Text, TextInput, View} from 'react-native';
+import React, {useState} from 'react';
 import {Control, Controller, FieldValues} from 'react-hook-form';
 import {styles} from './styles';
+import {useTogglePasswordVisibility} from '../../hooks/useTogglePasswordVisibility';
 
 interface CustomInputProps {
   control: Control<FieldValues>;
@@ -15,8 +16,17 @@ const CustomInput = ({
   name,
   rules = {},
   placeholder,
-  secureTextEntry,
 }: CustomInputProps) => {
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+
+  const handlePasswordVisibility = () => {
+    setPasswordVisibility(!passwordVisibility);
+  };
+
+  const icon = passwordVisibility
+    ? require('../../assets/icons/show.png')
+    : require('../../assets/icons/hide.png');
+
   return (
     <Controller
       control={control}
@@ -35,8 +45,13 @@ const CustomInput = ({
               onChangeText={onChange}
               onBlur={onBlur}
               style={styles.input}
-              secureTextEntry={secureTextEntry}
+              secureTextEntry={name === 'password' ? passwordVisibility : false}
             />
+            {name === 'password' && (
+              <Pressable onPress={handlePasswordVisibility}>
+                <Image style={styles.password_icon} source={icon} />
+              </Pressable>
+            )}
           </View>
           {error && (
             <Text style={{color: 'red', alignSelf: 'stretch'}}>

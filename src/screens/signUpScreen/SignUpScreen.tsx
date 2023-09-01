@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import React, {useRef, useState} from 'react';
+import {Text, View, ScrollView} from 'react-native';
+import React, {useRef} from 'react';
 import CustomInput from '../../components/customInput/CustomInput';
 import CustomButton from '../../components/customButton/CustomButton';
 import SocialSignInButtons from '../../components/socialSignInButtons/SocialSignInButtons';
@@ -8,7 +8,7 @@ import {RootStackParamListProp} from '../../types/navigationTypes';
 import {useForm} from 'react-hook-form';
 import {styles} from './styles';
 import {EMAIL_REGEX} from '../../constants/constants';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setEmail, setPassword, setUserName} from '../../redux/userSlice';
 
 const SignUpScreen = () => {
@@ -22,10 +22,10 @@ const SignUpScreen = () => {
   pass.current = watch('password', '');
 
   const onRegisterPress = data => {
-    dispatch(setUserName(data.username));
-    dispatch(setEmail(data.email));
-    dispatch(setPassword(data.password));
-    navigation.navigate('SignIn');
+    navigation.navigate('SignIn', {
+      username: data.username,
+      password: data.password,
+    });
   };
 
   const onSignInPressed = () => {
@@ -88,7 +88,7 @@ const SignUpScreen = () => {
         />
         <CustomInput
           placeholder="Repeat Password"
-          name="password_repeat"
+          name="password"
           control={control}
           rules={{
             required: 'Repeat Password is required',

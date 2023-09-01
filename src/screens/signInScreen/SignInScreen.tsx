@@ -1,4 +1,4 @@
-import {View, Image, useWindowDimensions} from 'react-native';
+import {View, Image, useWindowDimensions, Pressable} from 'react-native';
 import React from 'react';
 import CustomInput from '../../components/customInput/CustomInput';
 import CustomButton from '../../components/customButton/CustomButton';
@@ -9,12 +9,9 @@ import {useForm} from 'react-hook-form';
 import {styles} from './styles';
 import {useDispatch} from 'react-redux';
 import {setPassword, setUserName} from '../../redux/userSlice';
+import {useTogglePasswordVisibility} from '../../hooks/useTogglePasswordVisibility';
 
-const logo = {
-  image: require('../../assets/images/logo.png'),
-};
-
-const SignInScreen = () => {
+const SignInScreen = route => {
   const {height} = useWindowDimensions();
 
   const dispatch = useDispatch();
@@ -40,7 +37,7 @@ const SignInScreen = () => {
   return (
     <View style={styles.root}>
       <Image
-        source={logo.image}
+        source={require('../../assets/images/logo.png')}
         style={[styles.logo, {height: height * 0.3}]}
         resizeMode="contain"
       />
@@ -65,6 +62,7 @@ const SignInScreen = () => {
           },
         }}
       />
+
       <CustomButton text="Sign In" onPress={handleSubmit(onSignInPressed)} />
       <CustomButton
         text="Forgon password?"
